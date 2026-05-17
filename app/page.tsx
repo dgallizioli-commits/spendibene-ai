@@ -9,9 +9,11 @@ export default function Home() {
     nome: string;
     prezzo: string;
     score: string;
+    alternative: string[];
   } | null>(null);
 
-  const [caricamento, setCaricamento] = useState(false);
+  const [caricamento, setCaricamento] =
+    useState(false);
 
   const analizzaProdotto = () => {
     if (!link) {
@@ -20,39 +22,61 @@ export default function Home() {
     }
 
     if (!link.includes("amazon")) {
-      alert("Questo non sembra un link Amazon");
+      alert(
+        "Questo non sembra un link Amazon"
+      );
       return;
     }
+
+    setRisultato(null);
 
     setCaricamento(true);
 
     setTimeout(() => {
+
       if (
-        link.toLowerCase().includes("samsung")
+        link.toLowerCase().includes(
+          "samsung"
+        )
       ) {
         setRisultato({
           nome: "Samsung Galaxy A16",
           prezzo: "€189",
-          score: "8.4/10"
+          score: "8.4/10",
+          alternative: [
+            "Xiaomi Redmi Note 14",
+            "Motorola G85"
+          ]
         });
+
       } else {
+
         setRisultato({
           nome: "Prodotto Amazon rilevato",
           prezzo: "€99",
-          score: "7.5/10"
+          score: "7.5/10",
+          alternative: [
+            "Alternativa 1",
+            "Alternativa 2"
+          ]
         });
+
       }
 
       setCaricamento(false);
+
     }, 2000);
   };
 
   return (
     <div className="min-h-screen bg-blue-700 text-white p-8">
+
       <div className="max-w-6xl mx-auto">
 
         <header className="flex items-center justify-between py-6">
+
           <div>
+
             <h1 className="text-5xl font-bold">
               Spendi
               <span className="text-green-400">
@@ -64,13 +88,16 @@ export default function Home() {
             </h1>
 
             <p className="text-xl mt-3 italic">
-              Confronta, scegli, spendi bene!
+              Confronta, scegli,
+              spendi bene!
             </p>
+
           </div>
 
           <div className="text-6xl">
             🔍💶✓
           </div>
+
         </header>
 
         <section className="grid md:grid-cols-2 gap-10 items-center py-20">
@@ -78,7 +105,8 @@ export default function Home() {
           <div>
 
             <h2 className="text-4xl font-bold leading-tight">
-              Il tuo consulente acquisti intelligente
+              Il tuo consulente acquisti
+              intelligente
             </h2>
 
             <p className="mt-6 text-lg text-blue-100">
@@ -108,19 +136,22 @@ export default function Home() {
               </button>
 
               {caricamento && (
-                <div className="mt-4 text-center text-black">
+                <div className="mt-6 text-center text-black">
                   🔍 Analisi in corso...
                 </div>
               )}
 
               {risultato && !caricamento && (
+
                 <div className="mt-6 bg-white text-black p-4 rounded-xl">
 
                   <h3 className="font-bold text-xl">
                     Prodotto rilevato
                   </h3>
 
-                  <p>{risultato.nome}</p>
+                  <p>
+                    {risultato.nome}
+                  </p>
 
                   <p>
                     Prezzo:
@@ -134,7 +165,25 @@ export default function Home() {
                     {risultato.score}
                   </p>
 
+                  <h4 className="font-bold mt-4">
+                    Alternative consigliate
+                  </h4>
+
+                  <ul className="mt-2">
+
+                    {risultato.alternative.map(
+                      (item, index) => (
+
+                      <li key={index}>
+                        ✅ {item}
+                      </li>
+
+                    ))}
+
+                  </ul>
+
                 </div>
+
               )}
 
             </div>
@@ -161,10 +210,13 @@ export default function Home() {
         </section>
 
         <footer className="text-center text-blue-100 py-10">
-          © Spendibene AI — Confronta, scegli, spendi bene!
+          © Spendibene AI —
+          Confronta, scegli,
+          spendi bene!
         </footer>
 
       </div>
+
     </div>
   );
 }
