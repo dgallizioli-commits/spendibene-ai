@@ -11,6 +11,8 @@ export default function Home() {
     score: string;
   } | null>(null);
 
+  const [caricamento, setCaricamento] = useState(false);
+
   const analizzaProdotto = () => {
     if (!link) {
       alert("Incolla un link Amazon");
@@ -22,22 +24,29 @@ export default function Home() {
       return;
     }
 
-   if (
-  link.toLowerCase().includes("samsung") ||
-  link.toLowerCase().includes("galaxy")
-) {
-      setRisultato({
-        nome: "Samsung Galaxy A16",
-        prezzo: "€189",
-        score: "8.4/10"
-      });
-    } else {
-      setRisultato({
-        nome: "Prodotto Amazon rilevato",
-        prezzo: "€99",
-        score: "7.5/10"
-      });
-    }
+    setCaricamento(true);
+
+    setTimeout(() => {
+      if (
+        link.toLowerCase().includes("samsung") ||
+        link.toLowerCase().includes("galaxy")
+      ) {
+        setRisultato({
+          nome: "Samsung Galaxy A16",
+          prezzo: "€189",
+          score: "8.4/10"
+        });
+      } else {
+        setRisultato({
+          nome: "Prodotto Amazon rilevato",
+          prezzo: "€99",
+          score: "7.5/10"
+        });
+      }
+
+      setCaricamento(false);
+
+    }, 2000);
   };
 
   return (
@@ -74,30 +83,34 @@ export default function Home() {
 
             <div className="mt-8 bg-white rounded-3xl p-4 shadow-2xl">
               <input
-  value={link}
-  onChange={(e) => setLink(e.target.value)}
-  placeholder="Incolla qui un link Amazon..."
-  className="w-full p-4 rounded-xl text-black outline-none"
-/>
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+                placeholder="Incolla qui un link Amazon..."
+                className="w-full p-4 rounded-xl text-black outline-none"
+              />
 
-<button
-  onClick={analizzaProdotto}
-  className="w-full mt-4 bg-green-500 rounded-2xl p-4 text-xl font-bold"
->
-  Analizza prodotto
-</button>
-{risultato && (
-  <div className="mt-6 bg-white text-black p-4 rounded-xl">
-    <h3 className="font-bold text-xl">
-      Prodotto rilevato
-    </h3>
+              <button
+                onClick={analizzaProdotto}
+                className="w-full mt-4 bg-green-500 rounded-2xl p-4 text-xl font-bold"
+              >
+                {caricamento
+                  ? "Analisi in corso..."
+                  : "Analizza prodotto"}
+              </button>
 
-    <p>{risultato.nome}</p>
-    <p>Prezzo: {risultato.prezzo}</p>
-    <p>Spendibene Score: {risultato.score}</p>
-  </div>
-)}
-                
+              {risultato && (
+                <div className="mt-6 bg-white text-black p-4 rounded-xl">
+                  <h3 className="font-bold text-xl">
+                    Prodotto rilevato
+                  </h3>
+
+                  <p>{risultato.nome}</p>
+                  <p>Prezzo: {risultato.prezzo}</p>
+                  <p>
+                    Spendibene Score: {risultato.score}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
