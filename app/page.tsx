@@ -6,13 +6,18 @@ export default function Home() {
   const [link, setLink] = useState("");
 
   const analizzaProdotto = () => {
-    if (!link) {
-      alert("Incolla un link Amazon");
-      return;
-    }
+  if (!link) {
+    alert("Incolla un link Amazon");
+    return;
+  }
 
-    alert("Link ricevuto: " + link);
-  };
+  if (!link.includes("amazon")) {
+    alert("Questo non sembra un link Amazon");
+    return;
+  }
+
+  alert("Analisi avviata 🚀");
+};
   return (
     <div className="min-h-screen bg-blue-700 text-white p-8">
       <div className="max-w-6xl mx-auto">
