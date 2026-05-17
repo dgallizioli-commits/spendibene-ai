@@ -4,28 +4,42 @@ import { useState } from "react";
 
 export default function Home() {
   const [link, setLink] = useState("");
-const [risultato, setRisultato] = useState<{
-  nome: string;
-  prezzo: string;
-  score: string;
-} | null>(null);
+
+  const [risultato, setRisultato] = useState<{
+    nome: string;
+    prezzo: string;
+    score: string;
+  } | null>(null);
+
   const analizzaProdotto = () => {
-  if (!link) {
-    alert("Incolla un link Amazon");
-    return;
-  }
+    if (!link) {
+      alert("Incolla un link Amazon");
+      return;
+    }
 
-  if (!link.includes("amazon")) {
-    alert("Questo non sembra un link Amazon");
-    return;
-  }
+    if (!link.includes("amazon")) {
+      alert("Questo non sembra un link Amazon");
+      return;
+    }
 
- setRisultato({
-  nome: "Samsung Galaxy A16",
-  prezzo: "€189",
-  score: "8.4/10"
-});
-};
+   if (
+  link.toLowerCase().includes("samsung") ||
+  link.toLowerCase().includes("galaxy")
+) {
+      setRisultato({
+        nome: "Samsung Galaxy A16",
+        prezzo: "€189",
+        score: "8.4/10"
+      });
+    } else {
+      setRisultato({
+        nome: "Prodotto Amazon rilevato",
+        prezzo: "€99",
+        score: "7.5/10"
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-blue-700 text-white p-8">
       <div className="max-w-6xl mx-auto">
