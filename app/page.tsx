@@ -1,4 +1,18 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [link, setLink] = useState("");
+
+  const analizzaProdotto = () => {
+    if (!link) {
+      alert("Incolla un link Amazon");
+      return;
+    }
+
+    alert("Link ricevuto: " + link);
+  };
   return (
     <div className="min-h-screen bg-blue-700 text-white p-8">
       <div className="max-w-6xl mx-auto">
@@ -33,13 +47,19 @@ export default function Home() {
 
             <div className="mt-8 bg-white rounded-3xl p-4 shadow-2xl">
               <input
-                placeholder="Incolla qui un link Amazon..."
-                className="w-full p-4 rounded-xl text-black outline-none"
-              />
+  value={link}
+  onChange={(e) => setLink(e.target.value)}
+  placeholder="Incolla qui un link Amazon..."
+  className="w-full p-4 rounded-xl text-black outline-none"
+/>
 
-              <button className="w-full mt-4 bg-green-500 rounded-2xl p-4 text-xl font-bold">
-                Analizza prodotto
-              </button>
+<button
+  onClick={analizzaProdotto}
+  className="w-full mt-4 bg-green-500 rounded-2xl p-4 text-xl font-bold"
+>
+  Analizza prodotto
+</button>
+                
             </div>
           </div>
 
