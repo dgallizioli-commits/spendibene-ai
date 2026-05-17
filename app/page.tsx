@@ -4,7 +4,11 @@ import { useState } from "react";
 
 export default function Home() {
   const [link, setLink] = useState("");
-
+const [risultato, setRisultato] = useState<{
+  nome: string;
+  prezzo: string;
+  score: string;
+} | null>(null);
   const analizzaProdotto = () => {
   if (!link) {
     alert("Incolla un link Amazon");
@@ -16,7 +20,11 @@ export default function Home() {
     return;
   }
 
-  alert("Analisi avviata 🚀");
+ setRisultato({
+  nome: "Samsung Galaxy A16",
+  prezzo: "€189",
+  score: "8.4/10"
+});
 };
   return (
     <div className="min-h-screen bg-blue-700 text-white p-8">
@@ -64,6 +72,17 @@ export default function Home() {
 >
   Analizza prodotto
 </button>
+{risultato && (
+  <div className="mt-6 bg-white text-black p-4 rounded-xl">
+    <h3 className="font-bold text-xl">
+      Prodotto rilevato
+    </h3>
+
+    <p>{risultato.nome}</p>
+    <p>Prezzo: {risultato.prezzo}</p>
+    <p>Spendibene Score: {risultato.score}</p>
+  </div>
+)}
                 
             </div>
           </div>
